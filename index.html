@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>La Otredad</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body oncontextmenu="return false">
+
+<div class="poster">
+
+    <header class="header">
+        <h1>LA OTREDAD</h1>
+        <p>El otro como espejo del yo</p>
+    </header>
+
+    <section class="block">
+        <div class="image-placeholder">
+            <img src="imagenes/001.jpg" alt="Otredad filosófica">
+        </div>
+        <div class="text">
+            <h2>¿Qué es la Otredad?</h2>
+            <p>
+                La otredad hace referencia a la forma en que el ser humano percibe y
+                construye al otro como alguien diferente a sí mismo. Esta diferencia
+                no solo define a quien es considerado “otro”, sino que también permite
+                al individuo reconocerse y comprender su propia identidad.
+            </p>
+        </div>
+    </section>
+
+    <section class="block reverse">
+        <div class="image-placeholder">
+            <img src="imagenes/002.jpg" alt="Otredad filosófica">
+        </div>
+        <div class="text">
+            <h2>Perspectiva Filosófica</h2>
+            <p>
+                Desde la filosofía, el otro es una referencia indispensable para la
+                existencia del yo. La identidad no se construye de manera aislada,
+                sino en relación con aquello que es distinto.
+            </p>
+        </div>
+    </section>
+
+    <section class="block">
+        <div class="image-placeholder">
+            <img src="imagenes/003.jpg" alt="Otredad filosófica">
+        </div>
+        <div class="text">
+            <h2>Perspectiva Social</h2>
+            <p>
+                En el ámbito social, el otro suele ser definido como quien no encaja
+                en las normas establecidas. Esta clasificación puede generar procesos
+                de exclusión, discriminación o conflicto dentro de la sociedad.
+            </p>
+        </div>
+    </section>
+
+    <section class="block reverse">
+        <div class="image-placeholder">
+            <img src="imagenes/004.jpg" alt="Otredad filosófica">
+        </div>
+        <div class="text">
+            <h2>Perspectiva Psicoanalítica</h2>
+            <p>
+                El psicoanálisis plantea que el otro no solo es externo, sino que
+                también habita dentro del sujeto. Deseos, miedos y aspectos
+                inconscientes forman parte de esa otredad interna.
+            </p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>Infografía UNAD – Julian Andres (80004)</p>
+    </footer>
+
+</div>
+
+<script>
+// Animación al hacer scroll
+document.addEventListener('DOMContentLoaded', function() {
+    const blocks = document.querySelectorAll('.block');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+    
+    blocks.forEach(block => {
+        observer.observe(block);
+    });
+    
+    // Añadir clase visible a los primeros elementos para que aparezcan inmediatamente
+    setTimeout(() => {
+        document.querySelector('.header').classList.add('visible');
+        if (blocks.length > 0) blocks[0].classList.add('visible');
+    }, 100);
+});
+</script>
+
+</body>
+</html>
