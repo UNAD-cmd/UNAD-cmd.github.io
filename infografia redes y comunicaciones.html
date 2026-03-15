@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Fundamentos de Redes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #0b1c2f 0%, #13293e 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        /* contenedor infografía: simula un panel / póster */
+        .infografia {
+            max-width: 1300px;
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(2px);
+            border-radius: 3rem 3rem 2rem 2rem;
+            padding: 2rem 1.8rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 0 2px #2d4f6c inset, 0 0 0 4px #0f2a3b inset;
+            border: 1px solid #3e6d8c;
+        }
+
+        /* título principal con estilo infográfico */
+        .titulo-principal {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+        .titulo-principal h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #f0f9ff, #9fc5e8, #6fa8dc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px #00a6ff70, 0 0 20px #004e9e;
+            text-transform: uppercase;
+            display: inline-block;
+            padding: 0 20px;
+            border-bottom: 5px solid #3e92cc;
+            border-top: 2px solid #2a6f9e;
+            border-radius: 30px;
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+        }
+        .titulo-principal .subhead {
+            color: #b2d6f0;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            word-spacing: 8px;
+            margin-top: 8px;
+            font-weight: 300;
+            text-transform: uppercase;
+            background: #0b2637b0;
+            display: inline-block;
+            padding: 0.2rem 2rem;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* grilla de secciones (formato infografía tipo bloque) */
+        .grid-infografia {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        /* tarjetas/secciones */
+        .card {
+            background: #eef5fc;
+            background-image: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.9) 0%, #d9e9f7 90%);
+            border-radius: 1.8rem;
+            padding: 1.5rem 1.2rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6), 0 4px 0 0 #2c5777, 0 8px 0 0 #173e57;
+            border: 1px solid #a0c6e9;
+            transition: transform 0.1s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 25px rgba(0, 0, 0, 0.7), 0 4px 0 0 #2c5777, 0 8px 0 0 #173e57;
+        }
+
+        /* encabezado de sección */
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1rem;
+            border-bottom: 3px dotted #1e4f73;
+            padding-bottom: 0.6rem;
+        }
+        .card-header .icono {
+            font-size: 2.2rem;
+            background: #113855;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 0 3px #7fb4db;
+        }
+        .card-header h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #0d324b;
+            text-shadow: 2px 2px 0 #bdd9f0;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+        .card-header h2 span {
+            font-size: 0.9rem;
+            background: #1f557b;
+            color: white;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            margin-left: 10px;
+            font-weight: 400;
+            text-shadow: none;
+            display: inline-block;
+        }
+
+        /* contenido */
+        .card-content {
+            flex: 1;
+            font-size: 0.95rem;
+            color: #021c2c;
+        }
+
+        /* listas con viñetas custom */
+        ul.lista-infografia {
+            list-style: none;
+            margin-top: 5px;
+        }
+        ul.lista-infografia li {
+            margin-bottom: 0.7rem;
+            padding-left: 1.8rem;
+            position: relative;
+            font-weight: 500;
+            line-height: 1.35;
+        }
+        ul.lista-infografia li::before {
+            content: "▹▹";
+            position: absolute;
+            left: 0;
+            color: #d66b1f;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-shadow: 0 1px 0 #b24e0a;
+        }
+
+        /* bullet para listas dentro de texto */
+        .mini-bullet {
+            display: inline-block;
+            background: #0c4a6e;
+            color: white;
+            border-radius: 20px;
+            padding: 0.1rem 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 6px;
+        }
+
+        .badge {
+            background: #1e5985;
+            color: white;
+            font-weight: 600;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            display: inline-block;
+            margin: 0.2rem 0.2rem 0 0;
+        }
+
+        .destaque {
+            background: #fbedd5;
+            border-left: 6px solid #faa75e;
+            padding: 0.7rem;
+            border-radius: 12px;
+            margin: 0.8rem 0;
+            font-weight: 500;
+            box-shadow: inset 0 0 6px #afcbe3;
+        }
+
+        hr.sep {
+            border: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #2079b0, transparent);
+            margin: 12px 0;
+        }
+
+        /* código / direcciones IP ficticias */
+        .code-like {
+            font-family: 'Courier New', monospace;
+            background: #122b3b;
+            color: #b3e0ff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: inline-block;
+        }
+
+        /* sexta sección puede ocupar 2 columnas si queremos, pero la ponemos al final con grid row */
+        .span-2 {
+            grid-column: span 2;
+        }
+        .span-full {
+            grid-column: 1 / -1;
+        }
+
+        /* ajustes responsivos */
+        @media (max-width: 900px) {
+            .grid-infografia {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 600px) {
+            .grid-infografia {
+                grid-template-columns: 1fr;
+            }
+            .titulo-principal h1 { font-size: 2.2rem; }
+        }
+
+        /* línea de tiempo mini para historia */
+        .timeline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .timeline-item {
+            background: #173f5f;
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            box-shadow: inset 0 -2px 0 #0d2638;
+        }
+
+        /* capas osi ejemplo gráfico simplificado */
+        .capas-mini {
+            display: flex;
+            flex-direction: column;
+            background: #1f3c54;
+            border-radius: 18px;
+            padding: 6px;
+            margin: 10px 0;
+        }
+        .capa-row {
+            display: flex;
+            background: #2f5577;
+            margin: 2px 0;
+            border-radius: 30px;
+            color: white;
+            padding: 2px 10px;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        /* pequeño script para actualizar año? sólo demostración */
+        .footer-note {
+            margin-top: 30px;
+            color: #b6d4f0;
+            text-align: center;
+            font-size: 0.9rem;
+            border-top: 1px dashed #457a9d;
+            padding-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .glow {
+            color: #fff5d6;
+            background: #163a52;
+            padding: 0.3rem 1.2rem;
+            border-radius: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="infografia">
+        <div class="titulo-principal">
+            <h1>Fundamentos de Redes</h1>
+            <div class="subhead">la base de la conexión digital · arquitectura · protocolos · hardware</div>
+        </div>
+
+        <!-- GRID INFOGRAFÍA: 6 secciones + 1 extra integrada -->
+        <div class="grid-infografia" id="infografiaGrid">
+            <!-- Sección 1: Historia -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="icono">⏳</div>
+                    <h2>Historia <span>evolución</span></h2>
+                </div>
+                <div class="card-content">
+                    <ul class="lista-infografia">
+                        <li><span class="mini-bullet">1960s</span> Conmutación de paquetes (primera idea)</li>
+                        <li><span class="mini-bullet">1969</span> <strong>ARPANET</strong> — 4 nodos iniciales (UCLA, Stanford, etc.)</li>
+                        <li><span class="mini-bullet">1970-80</span> Protocolos y LAN; Ethernet, TCP/IP</li>
+                        <li><span class="mini-bullet">1990s</span> Explosión Web (HTTP) y popularización masiva</li>
+                        <li><span class="mini-bullet">Hoy</span> SDN, IoT, 5G, fibra óptica masiva</li>
+                    </ul>
+                    <div class="timeline">
+                        <span class="timeline-item">🔹 ARPANET</span>
+                        <span class="timeline-item">🔹 TCP/IP</span>
+                        <span class="timeline-item">🔹 WWW</span>
+                        <span class="timeline-item">🔹 5G</span>
+                    </div>
+                    <div class="destaque">✨ De 4 nodos a miles de millones de dispositivos</div>
+                </div>
+            </div>
+
+            <!-- Sección 2: Componentes (Hardware) -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="icono">🖧</div>
+                    <h2>Hardware</h2>
+                </div>
+                <div class="card-content">
+                    <strong>Dispositivos de usuario:</strong> PCs, laptops, impresoras, teléfonos IP<br>
+                    <hr class="sep">
+                    <strong>Interconexión:</strong>
+                    <ul style="margin-left: 15px; list-style-type: square;">
+                        <li><span class="badge">Switch</span> conecta dispositivos LAN</li>
+                        <li><span class="badge">Router</span> conecta diferentes redes</li>
+                        <li><span class="badge">Access Point</span> Wi-Fi</li>
+                    </ul>
+                    <strong>Medios:</strong> 
+                    <span class="badge">UTP (cobre)</span> <span class="badge">Fibra óptica</span> <span class="badge">Ondas (Wi-Fi)</span>
+                    <div style="margin-top: 8px;">💡 Fibra: larga distancia, inmune a interferencias</div>
+                </div>
+            </div>
+
+            <!-- Sección 3: Modelos de referencia (OSI y TCP/IP) -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="icono">📚</div>
+                    <h2>Modelos</h2>
+                </div>
+                <div class="card-content">
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px;">
+                        <span class="badge" style="background: #b5641a;">OSI (teórico)</span>
+                        <span class="badge" style="background: #1a7f5c;">TCP/IP (práctico)</span>
+                    </div>
+                    <div class="capas-mini">
+                        <div class="capa-row"><span>7 Aplicación</span><span>HTTP, SMTP</span></div>
+                        <div class="capa-row"><span>6 Presentación</span><span> </span></div>
+                        <div class="capa-row"><span>5 Sesión</span><span> </span></div>
+                        <div class="capa-row"><span>4 Transporte</span><span>TCP/UDP</span></div>
+                        <div class="capa-row"><span>3 Red</span><span>IP</span></div>
+                        <div class="capa-row"><span>2 Enlace</span><span>Ethernet</span></div>
+                        <div class="capa-row"><span>1 Física</span><span>cables</span></div>
+                    </div>
+                    <p><strong>TCP/IP (4 capas):</strong> Acceso a Red · Internet (IP) · Transporte (TCP/UDP) · Aplicación.</p>
+                    <p class="destaque" style="padding: 0.3rem;">"De la electricidad a la interfaz"</p>
+                </div>
+            </div>
+
+            <!-- Sección 4: Protocolos clave -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="icono">🗣️</div>
+                    <h2>Protocolos</h2>
+                </div>
+                <div class="card-content">
+                    <ul class="lista-infografia" style="margin-top: 0;">
+                        <li><strong>IP</strong> — «sobre» con direcciones origen/destino</li>
+                        <li><strong>TCP</strong> — ordena y verifica entrega confiable</li>
+                        <li><strong>UDP</strong> — rápido, sin conexión (streaming)</li>
+                        <li><strong>HTTP/HTTPS</strong> — idioma de la web</li>
+                        <li><strong>DNS</strong> — traduce google.com → IP</li>
+                        <li><strong>DHCP</strong> — asigna IP automática</li>
+                    </ul>
+                    <div style="background: #c4ddf3; border-radius: 20px; padding: 0.5rem; margin-top: 8px;">
+                        📌 <span class="code-like">DNS: la agenda telefónica</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección 5: Topologías -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="icono">🔁</div>
+                    <h2>Topologías</h2>
+                </div>
+                <div class="card-content">
+                    <p><span class="badge">FÍSICA</span> cómo se tiende el cable:</p>
+                    <ul style="margin-left: 20px;">
+                        <li><strong>Estrella</strong> ☆ switch central (común hoy)</li>
+                        <li><strong>Bus</strong> ▬ cable único (obsoleto)</li>
+                        <li><strong>Anillo</strong> ○ raro actualmente</li>
+                    </ul>
+                    <p><span class="badge">LÓGICA</span> cómo viajan datos: broadcast, token passing…</p>
+                    <div style="font-size:1.6rem; text-align:center; line-height:1;">⬤  ─  ⬤   ⬤<span style="color:#b64900;">  (estrella)</span></div>
+                </div>
+            </div>
+
+            <!-- Sección 6: IPv4 (ocupa 1 columna pero contenido denso) -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="icono">🌐</div>
+                    <h2>IPv4</h2>
+                </div>
+                <div class="card-content">
+                    <p><strong>32 bits</strong> · ej. <span class="code-like">192.168.1.1</span></p>
+                    <p>Estructura: <strong>RED . SUBNET . HOST</strong></p>
+                    <hr class="sep">
+                    <div><span class="badge">Clase A</span> 10.0.0.0  (grandes redes)</div>
+                    <div><span class="badge">Clase B</span> 172.16.0.0 (medianas)</div>
+                    <div><span class="badge">Clase C</span> 192.168.1.0 (pequeñas)</div>
+                    <div><span class="badge">Máscara</span> 255.255.255.0 = /24</div>
+                    <div class="destaque" style="margin-top: 10px;">La máscara define red vs host</div>
+                </div>
+            </div>
+        </div> <!-- fin grid -->
+
+        <!-- Sección extra de datos / comparación rápida OSI vs TCP/IP a modo de complemento (como infografía inferior) -->
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; background: #153d57; border-radius: 2rem; padding: 1.2rem; border: 2px solid #2f78a5;">
+            <div style="flex:2; min-width: 230px;">
+                <h3 style="color:#ffd966; font-size: 1.6rem; margin-bottom: 8px;">📡 Capas en acción</h3>
+                <p style="color: #ddf0ff;"><span style="background: #005f73; padding:0.2rem 1rem; border-radius:20px;">Aplicación (HTTP)</span> <span style="background: #0a4b5e;">⬇</span> <span style="background: #0f5b73;">Transporte (TCP)</span> <span style="background: #146c8a;">⬇</span> <span style="background: #1a7f9f;">Red (IP)</span> <span style="background: #2392b5;">⬇</span> <span style="background: #2aa5cc;">Enlace/Física</span></p>
+                <p style="color: white;">TCP segmenta, IP direcciona, y el medio físico transporta bits.</p>
+            </div>
+            <div style="flex:1; background: #1b4c67; border-radius: 30px; padding: 0.8rem; color: #ffdba5;">
+                💡 <strong>Dato curioso:</strong> La dirección 127.0.0.1 es "localhost" — tu propio equipo.
+            </div>
+            <div style="flex:1; background: #275d7a; border-radius: 30px; padding: 0.8rem; color: #c0e0ff;">
+                🧪 <strong>IPv6</strong> nació por falta de direcciones IPv4.
+            </div>
+        </div>
+
+        <!-- Pie con año dinámico vía JS -->
+        <div class="footer-note">
+            <span class="glow">🔹 infografía: fundamentos de redes · todos los derechos didácticos</span>
+            <span class="glow" id="añoDinamico">2025</span>
+        </div>
+    </div>
+
+    <!-- pequeño script para año y algún efecto interactivo menor -->
+    <script>
+        (function() {
+            // actualizar año automático
+            const añoSpan = document.getElementById('añoDinamico');
+            if (añoSpan) {
+                const año = new Date().getFullYear();
+                añoSpan.textContent = `© ${año}`;
+            }
+
+            // añadir tooltips o highlights (solo para demostrar JS)
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.addEventListener('mouseenter', function(e) {
+                    // efecto sutil: brillo en el header
+                    const header = this.querySelector('.card-header');
+                    if (header) {
+                        header.style.transition = '0.2s';
+                        header.style.textShadow = '0 0 8px #9ac7ff';
+                    }
+                });
+                card.addEventListener('mouseleave', function(e) {
+                    const header = this.querySelector('.card-header');
+                    if (header) {
+                        header.style.textShadow = 'none';
+                    }
+                });
+            });
+
+            // mensaje en consola solo para demostrar que javascript está presente
+            console.log('Infografía interactiva de redes cargada. Todos los protocolos listos.');
+        })();
+    </script>
+
+    <!-- estilo adicional para algún detalle de íconos (no necesario) -->
+</body>
+</html>
